@@ -1,4 +1,4 @@
-package com.example.movietrailer.data.source.model
+package com.example.movietrailer.data.tmdbSource.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -6,15 +6,14 @@ data class TmdbMovies(
     val page: Long?,
     val results: List<TmdbMovie>?,
 ) {
-    fun getMostPopularTmdbMovie(): TmdbMovie? {
-        return results?.get(0)
+    fun getTmdbMovies(): List<TmdbMovie>? {
+        return results
     }
 }
 
 data class TmdbMovie(
     val id: Long?,
     val title: String?,
-    val popularity: Double?,
     val overview: String?,
     @SerializedName("poster_path")
     val posterPath: String?,

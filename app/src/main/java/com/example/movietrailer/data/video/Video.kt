@@ -1,4 +1,4 @@
-package com.example.movietrailer.data
+package com.example.movietrailer.data.video
 
 data class Video(
     val id: Long,
@@ -6,6 +6,5 @@ data class Video(
     val key: String?,
     val releaseData: String?,
     val overview: String?,
-    val popularity: Double?,
     val posterPath: String?,
 )

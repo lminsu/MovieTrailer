@@ -1,4 +1,4 @@
-package com.example.movietrailer.data.source.model
+package com.example.movietrailer.data.tmdbSource.model
 
 const val TRAILER = "Trailer"
 

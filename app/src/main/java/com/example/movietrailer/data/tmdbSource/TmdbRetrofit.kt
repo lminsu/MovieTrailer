@@ -1,4 +1,4 @@
-package com.example.movietrailer.data.source
+package com.example.movietrailer.data.tmdbSource
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

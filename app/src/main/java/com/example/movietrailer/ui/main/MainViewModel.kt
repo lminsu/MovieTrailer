@@ -3,8 +3,10 @@ package com.example.movietrailer.ui.main
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movietrailer.data.Video
-import com.example.movietrailer.data.VideoRepository
+import com.example.movietrailer.data.movie.Movie
+import com.example.movietrailer.data.video.Video
+import com.example.movietrailer.data.video.VideoRepository
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -15,7 +17,9 @@ class MainViewModel(
     private val repository: VideoRepository
 ) : ViewModel() {
 
-    private val video: StateFlow<Video?> = repository.video
+    private val _video = MutableStateFlow<Video?>(value = null)
+    val video: StateFlow<Video?> = _video
+
     val videoKey: StateFlow<String?> = video.map { it?.key }
         .stateIn(
             scope = viewModelScope,
@@ -47,10 +51,10 @@ class MainViewModel(
             initialValue = null
         )
 
-    fun loadTMDBVideos() {
+    fun loadVideo(movie: Movie) {
         viewModelScope.launch {
             try {
-                val video = repository.getMostPopularVideo()
+                _video.value = repository.getVideo(movie = movie)
                 Log.d(TAG, "getTMDBVideos succeeds, $video")
             } catch (e: Exception) {
                 Log.e(TAG, "getTMDBVideos fails, $e")
