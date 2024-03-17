@@ -1,5 +1,6 @@
 package com.example.movietrailer.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initYouTubePlayerController()
+        initMainViewController()
         viewModel.loadTMDBVideos()
     }
 
@@ -53,5 +55,26 @@ class MainFragment : Fragment() {
             )
             lifecycle.addObserver(observer = this)
         }
+    }
+
+    private fun initMainViewController() {
+        MainViewController(
+            binding = binding,
+            viewModelStoreOwner = this@MainFragment,
+            viewLifecycleOwner = viewLifecycleOwner
+        ).run {
+            initStatusBarHeight(height = getStatusBarHeight())
+        }
+    }
+
+
+    @SuppressLint("InternalInsetResource", "DiscouragedApi")
+    fun getStatusBarHeight(): Int {
+        var result = 0
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = resources.getDimensionPixelSize(resourceId)
+        }
+        return result
     }
 }

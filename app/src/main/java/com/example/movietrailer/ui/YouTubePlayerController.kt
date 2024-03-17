@@ -19,13 +19,20 @@ class YouTubePlayerController(
     viewModelStoreOwner: ViewModelStoreOwner,
     private val playerView: YouTubePlayerView,
 ) {
-    private val mainViewModel =
-        ViewModelProvider(owner = viewModelStoreOwner).get(MainViewModel::class.java)
+
+    private val mainViewModel by lazy {
+        ViewModelProvider(owner = viewModelStoreOwner).get(
+            MainViewModel::class.java
+        )
+    }
 
     init {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.videoKey.filterNotNull().collectLatest { startPlayer(videoId = it) }
+                launch {
+                    mainViewModel.videoKey.filterNotNull()
+                        .collectLatest { startPlayer(videoId = it) }
+                }
             }
         }
     }

@@ -15,8 +15,32 @@ class MainViewModel(
     private val repository: VideoRepository
 ) : ViewModel() {
 
-    val video: StateFlow<Video?> = repository.video
+    private val video: StateFlow<Video?> = repository.video
     val videoKey: StateFlow<String?> = video.map { it?.key }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = null
+        )
+    val backgroundImgSrc: StateFlow<String?> = video.map { it?.posterPath }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = null
+        )
+    val title: StateFlow<String?> = video.map { it?.title }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = null
+        )
+    val releaseData: StateFlow<String?> = video.map { it?.releaseData }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = null
+        )
+    val overview: StateFlow<String?> = video.map { it?.overview }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

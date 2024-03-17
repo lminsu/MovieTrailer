@@ -38,7 +38,8 @@ class VideoRepository {
             key = tmdbVideo.key,
             releaseData = tmdbMovie.releaseDate,
             overview = tmdbMovie.overview,
-            popularity = tmdbMovie.popularity
+            popularity = tmdbMovie.popularity,
+            posterPath = tmdbMovie.makePosterPathWithBaseUrl(),
         )
     }
 }

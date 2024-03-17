@@ -18,6 +18,12 @@ data class TmdbMovie(
     val overview: String?,
     @SerializedName("poster_path")
     val posterPath: String?,
-    @SerializedName("release_data")
+    @SerializedName("release_date")
     val releaseDate: String?,
-)
+) {
+    fun makePosterPathWithBaseUrl(): String {
+        return BASE_IMAGE_URL + posterPath
+    }
+}
+
+const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original"
