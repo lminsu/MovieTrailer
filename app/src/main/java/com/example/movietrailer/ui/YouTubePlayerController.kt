@@ -25,9 +25,7 @@ class YouTubePlayerController(
     init {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.tmdbVideos.filterNotNull().collectLatest { videos ->
-                    videos.results.get(0).key?.let { startPlayer(videoId = it) }
-                }
+                mainViewModel.videoKey.filterNotNull().collectLatest { startPlayer(videoId = it) }
             }
         }
     }

@@ -1,11 +1,11 @@
-package com.example.movietrailer.data.api
+package com.example.movietrailer.data.source
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object TMDBRetrofit {
+object TmdbRetrofit {
     private const val AUTHORIZATION_HEADER_KEY = "api_key"
     private const val AUTHORIZATION_HEADER_VALUE = "1dbf7e773954c1b18244d0d866ca6a44"
 

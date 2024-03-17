@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.movietrailer.data.VideoRepository
 import com.example.movietrailer.databinding.FragmentMainBinding
 import com.example.movietrailer.ui.YouTubePlayerController
 
@@ -21,7 +23,12 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(owner = this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(owner = this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return MainViewModel(repository = VideoRepository()) as T
+            }
+        })[MainViewModel::class.java]
     }
 
     override fun onCreateView(

@@ -3,24 +3,31 @@ package com.example.movietrailer.ui.main
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movietrailer.data.api.TmdbRepository
-import com.example.movietrailer.data.model.TmdbVideos
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.example.movietrailer.data.Video
+import com.example.movietrailer.data.VideoRepository
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    private val repository by lazy { TmdbRepository() }
+class MainViewModel(
+    private val repository: VideoRepository
+) : ViewModel() {
 
-    private val _tmdbVideos = MutableStateFlow<TmdbVideos?>(value = null)
-    val tmdbVideos: Flow<TmdbVideos?> = _tmdbVideos
+    val video: StateFlow<Video?> = repository.video
+    val videoKey: StateFlow<String?> = video.map { it?.key }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = null
+        )
 
     fun loadTMDBVideos() {
         viewModelScope.launch {
             try {
-                val tmdbVideos = repository.getTmdbVideos(movieId = 1096197)
-                Log.d(TAG, "getTMDBVideos succeeds, $tmdbVideos")
-                this@MainViewModel._tmdbVideos.value = tmdbVideos
+                val video = repository.getMostPopularVideo()
+                Log.d(TAG, "getTMDBVideos succeeds, $video")
             } catch (e: Exception) {
                 Log.e(TAG, "getTMDBVideos fails, $e")
             }
