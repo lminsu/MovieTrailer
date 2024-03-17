@@ -1,11 +1,11 @@
 package com.example.movietrailer.data.model
 
-data class TMDBVideos(
+data class TmdbVideos(
     val id: Int?,
-    val results: List<TMDBVideosResult>
+    val results: List<TmdbVideosResult>
 )
 
-data class TMDBVideosResult(
+data class TmdbVideosResult(
     val name: String?,
     val key: String?,
     val site: String?,
