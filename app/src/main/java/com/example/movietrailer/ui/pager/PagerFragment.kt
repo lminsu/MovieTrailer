@@ -19,10 +19,6 @@ import kotlinx.coroutines.launch
 
 class PagerFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = PagerFragment()
-    }
-
     private lateinit var viewModel: PagerViewModel
     private var _binding: FragmentPagerBinding? = null
     private val binding: FragmentPagerBinding get() = _binding!!
