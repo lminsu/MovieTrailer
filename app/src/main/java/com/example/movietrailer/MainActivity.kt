@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, PagerFragment.newInstance())
-                .commitNow()
+                .commitNow() // commitNow() 사용 이유, https://github.com/lminsu/MovieTrailer/issues/3#issue-2600864620
         }
     }
 }
