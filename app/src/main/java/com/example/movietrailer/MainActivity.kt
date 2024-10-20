@@ -9,6 +9,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // todo: 가로모드 대응 필요
+        // 가로모드일 변경 시 현재 선택된 페이지 유지하기 위해 조건문 추가
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, PagerFragment.newInstance())
