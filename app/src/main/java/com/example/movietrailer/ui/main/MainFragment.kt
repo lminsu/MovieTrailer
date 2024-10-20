@@ -37,12 +37,7 @@ class MainFragment : Fragment() {
             movieId = it.getLong(MOVIE_ID)
         }
 
-        viewModel = ViewModelProvider(owner = this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return MainViewModel(repository = VideoRepository()) as T
-            }
-        })[MainViewModel::class.java]
+        viewModel = makeMainViewModel()
     }
 
     override fun onCreateView(
@@ -96,5 +91,15 @@ class MainFragment : Fragment() {
 
     private fun getMovie(movieId: Long): Movie? {
         return (parentFragment as? PagerFragment)?.getMovie(movieId)
+    }
+
+    // todo: hilt 사용
+    @Suppress("UNCHECKED_CAST")
+    private fun makeMainViewModel(): MainViewModel {
+        return ViewModelProvider(owner = this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MainViewModel(repository = VideoRepository()) as T
+            }
+        })[MainViewModel::class.java]
     }
 }
