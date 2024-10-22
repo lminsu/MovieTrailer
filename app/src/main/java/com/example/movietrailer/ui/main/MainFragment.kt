@@ -26,7 +26,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by lazy { makeMainViewModel() }
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
     private var movieId: Long? = null
@@ -36,8 +36,6 @@ class MainFragment : Fragment() {
         arguments?.let {
             movieId = it.getLong(MOVIE_ID)
         }
-
-        viewModel = makeMainViewModel()
     }
 
     override fun onCreateView(
