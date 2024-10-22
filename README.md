@@ -8,7 +8,8 @@
   - 실제 영화 정보를 보여주는 뷰들을 가지고 있음
   - 유튜브 재생을 위한 video key api 호출
 
-![image](https://github.com/user-attachments/assets/612649af-5bc5-4d1f-a08c-0a084d28af7e)
+![image](https://github.com/user-attachments/assets/a073ab51-de53-4151-999f-b1a7290cc44e)
+
 
 ### 개발 주안점
 - mvvm 및 single source of truth 준수
