@@ -19,19 +19,9 @@ import kotlinx.coroutines.launch
 
 class PagerFragment : Fragment() {
 
-    private lateinit var viewModel: PagerViewModel
+    private val viewModel: PagerViewModel by lazy{ makePagerViewModel() }
     private var _binding: FragmentPagerBinding? = null
     private val binding: FragmentPagerBinding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(owner = this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return PagerViewModel(repository = MovieRepository()) as T
-            }
-        })[PagerViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,5 +57,14 @@ class PagerFragment : Fragment() {
 
     fun getMovie(movieId: Long): Movie? {
         return viewModel.getMovie(movieId = movieId)
+    }
+
+    private fun makePagerViewModel(): PagerViewModel {
+        return ViewModelProvider(owner = this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return PagerViewModel(repository = MovieRepository()) as T
+            }
+        })[PagerViewModel::class.java]
     }
 }
