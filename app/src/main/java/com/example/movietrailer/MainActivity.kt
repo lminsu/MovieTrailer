@@ -17,5 +17,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, PagerFragment())
                 .commitNow() // commitNow() 사용 이유, https://github.com/lminsu/MovieTrailer/issues/3#issue-2600864620
         }
+//        as;dkfjaw;lefjawelkfj
     }
 }
