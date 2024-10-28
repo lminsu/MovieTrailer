@@ -12,9 +12,9 @@
 
 
 ### 개발 주안점
-- mvvm 및 single source of truth 준수
+- [mvvm](https://developer.android.com/topic/architecture#recommended-app-arch) 및 [single source of truth](https://developer.android.com/topic/architecture#single-source-of-truth) 준수
   - ui 레이어에서 데이터 레이어로, 단방향으로 이벤트 전달하도록 함
-    - 뷰에서 뷰모델을 직접 참조하여 이벤트 전달
-    - 뷰모델에서는 StateFlow를 사용하여 뷰로 데이터 전달
-  - MovieRepository 클래스에서만 Movie 인스턴스를, VideoRepository 클래스엥서만 Video 인스턴스를 생성하도록 함
+    - 뷰에서는 뷰모델을 `직접 참조`하여 이벤트 전달
+    - 뷰모델에서는 StateFlow를 사용하여 뷰로 데이터 전달(직접 참조 안 함)
+  - MovieRepository 클래스에서만 Movie 인스턴스를, VideoRepository 클래스엥서만 Video 인스턴스를 생성하도록 함, [참고 코드랩](https://developer.android.com/codelabs/building-a-data-layer#2)
 - 자식 프래그먼트에서 부모 프래그먼트의 데이터가 필요한 경우, 부모 프로그래먼트를 ViewModelStoreOwner로 사용
