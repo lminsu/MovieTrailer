@@ -15,14 +15,13 @@ class PagerViewModel(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _movies = MutableStateFlow<List<Movie>?>(value = null)
-    val movies: StateFlow<List<Movie>?> = _movies
+    private val movies = MutableStateFlow<List<Movie>?>(value = null)
     val movieIds: StateFlow<List<Long>?> = movies.map { it?.map { movie -> movie.id } }
         .stateIn(scope = viewModelScope, started = SharingStarted.WhileSubscribed(), initialValue = null)
 
     fun loadMovies() {
         viewModelScope.launch {
-            _movies.value = repository.getMovies()
+            movies.value = repository.getMovies()
         }
     }
 
