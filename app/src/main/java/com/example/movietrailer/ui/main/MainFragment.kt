@@ -8,13 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.bumptech.glide.Glide
 import com.example.movietrailer.data.movie.Movie
 import com.example.movietrailer.data.video.VideoRepository
 import com.example.movietrailer.databinding.FragmentMainBinding
-import com.example.movietrailer.ui.YouTubePlayerController
 import com.example.movietrailer.ui.pager.PagerFragment
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
@@ -52,12 +60,57 @@ class MainFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		Log.d(TAG, "$TAG > ${hashCode()} > onViewCreated")
-		initYouTubePlayerController()
-		initMainViewController()
-		movieId?.let {
-			val movie = getMovie(movieId = it) ?: return@let
-			viewModel.loadVideo(movie = movie)
+		initViews()
+		collects()
+		movieId?.let { viewModel.loadVideo(movie = getMovie(it) ?: return@let) }
+	}
+
+	private fun initViews() {
+		lifecycle.addObserver(binding.youtubePlayerView)
+		binding.viewStatusBar.layoutParams.height = getStatusBarHeight()
+	}
+
+	private fun collects() {
+		viewLifecycleOwner.lifecycleScope.launch {
+			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+				launch {
+					viewModel.videoKey.filterNotNull().collectLatest { startPlayer(videoId = it) }
+				}
+				launch {
+					viewModel.backgroundImgSrc.filterNotNull().collectLatest {
+						Glide.with(binding.ivBg).load(it).centerCrop().into(binding.ivBg)
+					}
+				}
+
+				launch {
+					viewModel.title.filterNotNull().collectLatest {
+						binding.title.text = it
+					}
+				}
+
+				launch {
+					viewModel.overview.filterNotNull().collectLatest {
+						binding.tvOverview.text = it
+					}
+				}
+
+				launch {
+					viewModel.releaseData.filterNotNull().collectLatest {
+						binding.tvReleaseDate.text = it
+					}
+				}
+			}
 		}
+
+	}
+
+	private fun startPlayer(videoId: String) {
+		binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+			override fun onReady(youTubePlayer: YouTubePlayer) {
+				youTubePlayer.loadVideo(videoId = videoId, startSeconds = 0f)
+			}
+		})
+
 	}
 
 	override fun onAttach(context: Context) {
@@ -98,27 +151,6 @@ class MainFragment : Fragment() {
 	override fun onDetach() {
 		super.onDetach()
 		Log.d(TAG, "$TAG > ${hashCode()} > onDetach")
-	}
-
-	private fun initYouTubePlayerController() {
-		with(binding.youtubePlayerView) {
-			YouTubePlayerController(
-				viewLifecycleOwner = viewLifecycleOwner,
-				viewModelStoreOwner = this@MainFragment,
-				playerView = this
-			)
-			lifecycle.addObserver(observer = this)
-		}
-	}
-
-	private fun initMainViewController() {
-		MainViewController(
-			binding = binding,
-			viewModelStoreOwner = this@MainFragment,
-			viewLifecycleOwner = viewLifecycleOwner
-		).run {
-			initStatusBarHeight(height = getStatusBarHeight())
-		}
 	}
 
 
