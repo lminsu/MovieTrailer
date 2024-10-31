@@ -65,13 +65,13 @@ class MainFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		Log.d(TAG, "$TAG > ${hashCode()} > onViewCreated")
+		viewModel.updateStatusBarHeight(getStatusBarHeight())
 		initViews()
 		collects()
 	}
 
 	private fun initViews() {
 		lifecycle.addObserver(binding.youtubePlayerView)
-		binding.viewStatusBar.layoutParams.height = getStatusBarHeight()
 	}
 
 	private fun collects() {
@@ -101,6 +101,12 @@ class MainFragment : Fragment() {
 				launch {
 					viewModel.releaseData.filterNotNull().collectLatest {
 						binding.tvReleaseDate.text = it
+					}
+				}
+
+				launch {
+					viewModel.statusBarHeight.filterNotNull().collectLatest {
+						binding.viewStatusBar.layoutParams.height = it
 					}
 				}
 			}
@@ -160,7 +166,7 @@ class MainFragment : Fragment() {
 
 
 	@SuppressLint("InternalInsetResource", "DiscouragedApi")
-	fun getStatusBarHeight(): Int {
+	private fun getStatusBarHeight(): Int {
 		var result = 0
 		val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
 		if (resourceId > 0) {
