@@ -55,6 +55,9 @@ class MainViewModel(
 			initialValue = null
 		)
 
+	private val _statusBarHeight = MutableStateFlow<Int?>(null)
+	val statusBarHeight: StateFlow<Int?> = _statusBarHeight
+
 	init {
 		movie?.let { loadVideo(movie = it) }
 	}
@@ -68,6 +71,10 @@ class MainViewModel(
 				Log.e(TAG, "getTMDBVideos fails, $e")
 			}
 		}
+	}
+
+	fun updateStatusBarHeight(height: Int) {
+		_statusBarHeight.value = height
 	}
 
 	companion object {
