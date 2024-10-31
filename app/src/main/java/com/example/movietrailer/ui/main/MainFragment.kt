@@ -62,7 +62,6 @@ class MainFragment : Fragment() {
 		Log.d(TAG, "$TAG > ${hashCode()} > onViewCreated")
 		initViews()
 		collects()
-		movieId?.let { viewModel.loadVideo(movie = getMovie(it) ?: return@let) }
 	}
 
 	private fun initViews() {
