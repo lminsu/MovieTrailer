@@ -105,8 +105,7 @@ class MainFragment : Fragment() {
 	}
 
 	private fun startPlayer(videoId: String) {
-		binding.youtubePlayerView.addYouTubePlayerListener(object :
-			AbstractYouTubePlayerListener() {
+		binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
 			override fun onReady(youTubePlayer: YouTubePlayer) {
 				youTubePlayer.loadVideo(videoId = videoId, startSeconds = 0f)
 			}
@@ -165,8 +164,8 @@ class MainFragment : Fragment() {
 		return result
 	}
 
-	private fun getMovie(movieId: Long?): Movie? {
-		return (parentFragment as? PagerFragment)?.getMovie(movieId ?: return null)
+	private fun getMovie(movieId: Long): Movie? {
+		return (parentFragment as? PagerFragment)?.getMovie(movieId)
 	}
 
 	// todo: hilt 사용
@@ -174,7 +173,7 @@ class MainFragment : Fragment() {
 	private fun makeMainViewModel(): MainViewModel {
 		return ViewModelProvider(owner = this, object : ViewModelProvider.Factory {
 			override fun <T : ViewModel> create(modelClass: Class<T>): T {
-				return MainViewModel(repository = VideoRepository(), movie = getMovie(movieId)) as T
+				return MainViewModel(repository = VideoRepository()) as T
 			}
 		})[MainViewModel::class.java]
 	}

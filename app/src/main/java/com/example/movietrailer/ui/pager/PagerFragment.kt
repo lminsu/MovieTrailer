@@ -41,6 +41,7 @@ class PagerFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		Log.d(TAG, "$TAG > ${hashCode()} > onViewCreated")
 		collects()
+		viewModel.loadMovies()
 	}
 
 	override fun onAttach(context: Context) {

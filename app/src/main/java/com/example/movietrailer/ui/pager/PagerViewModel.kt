@@ -19,11 +19,7 @@ class PagerViewModel(
     val movieIds: StateFlow<List<Long>?> = movies.map { it?.map { movie -> movie.id } }
         .stateIn(scope = viewModelScope, started = SharingStarted.WhileSubscribed(), initialValue = null)
 
-    init{
-        loadMovies()
-    }
-
-    private fun loadMovies() {
+    fun loadMovies() {
         viewModelScope.launch {
             movies.value = repository.getMovies()
         }
