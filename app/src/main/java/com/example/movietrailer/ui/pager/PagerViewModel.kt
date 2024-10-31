@@ -12,24 +12,28 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class PagerViewModel(
-    private val repository: MovieRepository
+	private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val movies = MutableStateFlow<List<Movie>?>(value = null)
-    val movieIds: StateFlow<List<Long>?> = movies.map { it?.map { movie -> movie.id } }
-        .stateIn(scope = viewModelScope, started = SharingStarted.WhileSubscribed(), initialValue = null)
+	private val movies = MutableStateFlow<List<Movie>?>(value = null)
+	val movieIds: StateFlow<List<Long>?> = movies.map { it?.map { movie -> movie.id } }
+		.stateIn(
+			scope = viewModelScope,
+			started = SharingStarted.WhileSubscribed(),
+			initialValue = null
+		)
 
-    init{
-        loadMovies()
-    }
+	init {
+		loadMovies()
+	}
 
-    private fun loadMovies() {
-        viewModelScope.launch {
-            movies.value = repository.getMovies()
-        }
-    }
+	private fun loadMovies() {
+		viewModelScope.launch {
+			movies.value = repository.getMovies()
+		}
+	}
 
-    fun getMovie(movieId: Long): Movie? {
-        return movies.value?.firstOrNull { it.id == movieId }
-    }
+	fun getMovie(movieId: Long?): Movie? {
+		return movies.value?.firstOrNull { it.id == movieId }
+	}
 }

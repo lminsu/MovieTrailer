@@ -14,10 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
-import com.example.movietrailer.data.movie.Movie
 import com.example.movietrailer.data.video.VideoRepository
 import com.example.movietrailer.databinding.FragmentMainBinding
 import com.example.movietrailer.ui.pager.PagerFragment
+import com.example.movietrailer.ui.pager.PagerViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.coroutines.flow.collectLatest
@@ -37,9 +37,14 @@ class MainFragment : Fragment() {
 		}
 	}
 
-	private val viewModel: MainViewModel by lazy { makeMainViewModel() }
 	private var _binding: FragmentMainBinding? = null
 	private val binding: FragmentMainBinding get() = _binding!!
+
+	private val viewModel: MainViewModel by lazy { makeMainViewModel() }
+	private val pagerViewModel: PagerViewModel? by lazy {
+		val pagerFragment = parentFragment as? PagerFragment ?: return@lazy null
+		ViewModelProvider(owner = pagerFragment)[PagerViewModel::class.java]
+	}
 	private var movieId: Long? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -164,16 +169,15 @@ class MainFragment : Fragment() {
 		return result
 	}
 
-	private fun getMovie(movieId: Long?): Movie? {
-		return (parentFragment as? PagerFragment)?.getMovie(movieId ?: return null)
-	}
-
 	// todo: hilt 사용
 	@Suppress("UNCHECKED_CAST")
 	private fun makeMainViewModel(): MainViewModel {
 		return ViewModelProvider(owner = this, object : ViewModelProvider.Factory {
 			override fun <T : ViewModel> create(modelClass: Class<T>): T {
-				return MainViewModel(repository = VideoRepository(), movie = getMovie(movieId)) as T
+				return MainViewModel(
+					repository = VideoRepository(),
+					movie = pagerViewModel?.getMovie(movieId)
+				) as T
 			}
 		})[MainViewModel::class.java]
 	}
