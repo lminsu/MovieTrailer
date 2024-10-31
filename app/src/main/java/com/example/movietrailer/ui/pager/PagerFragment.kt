@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.movietrailer.data.movie.Movie
 import com.example.movietrailer.data.movie.MovieRepository
 import com.example.movietrailer.databinding.FragmentPagerBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -100,10 +99,6 @@ class PagerFragment : Fragment() {
 				}
 			}
 		}
-	}
-
-	fun getMovie(movieId: Long): Movie? {
-		return viewModel.getMovie(movieId = movieId)
 	}
 
 	private fun makePagerViewModel(): PagerViewModel {
