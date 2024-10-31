@@ -12,7 +12,7 @@
 
 
 ### 개발 주안점
-- [mvvm](https://developer.android.com/topic/architecture#recommended-app-arch) 및 [single source of truth](https://developer.android.com/topic/architecture#single-source-of-truth) 준수
+- [Unidirectional Data Flow](https://developer.android.com/topic/architecture#recommended-app-arch) 및 [single source of truth](https://developer.android.com/topic/architecture#single-source-of-truth) 준수
   - ui 레이어에서 데이터 레이어로, 단방향으로 이벤트 전달하도록 함
     - 뷰에서는 뷰모델을 `직접 참조`하여 이벤트 전달
     - 뷰모델에서는 StateFlow를 사용하여 뷰로 데이터 전달(직접 참조 안 함)
