@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-	private val repository: VideoRepository
+	private val repository: VideoRepository,
+	movie: Movie?
 ) : ViewModel() {
 
 	private val video = MutableStateFlow<Video?>(value = null)
@@ -53,6 +54,10 @@ class MainViewModel(
 			started = SharingStarted.WhileSubscribed(),
 			initialValue = null
 		)
+
+	init {
+		movie?.let { loadVideo(movie = it) }
+	}
 
 	fun loadVideo(movie: Movie) {
 		viewModelScope.launch {
