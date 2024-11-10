@@ -38,4 +38,4 @@ https://github.com/user-attachments/assets/eae4e972-bdd8-4071-af5e-a404fd4952c0
   - single source of truthe
     - MovieRepository 클래스에서만 Movie 인스턴스를, VideoRepository 클래스에서만 Video 인스턴스를 생성하도록 하도록 구현하였습니다.
 - [share data between a parent and child fragment](https://developer.android.com/guide/fragments/communicate#share_data_between_a_parent_and_child_fragment)
-  - 자식 프래그먼트에서 부모 프래그먼트의 데이터가 필요한 경우, 부모 뷰모델로 직접 접근하여 사용하였습니다.
+  - 자식 프래그먼트에서 부모 프래그먼트의 데이터가 필요한 경우, 부모 뷰모델에 직접 접근하여 사용하였습니다.
