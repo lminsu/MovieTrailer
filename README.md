@@ -3,11 +3,18 @@
 - [virtual memory](https://github.com/lminsu/MovieTrailer/issues/24#issuecomment-2466444707)
 - [user/kernel space, system call과 interrupt, context switch](https://github.com/lminsu/MovieTrailer/issues/24#issuecomment-2466461454)
 - [jvm](https://github.com/lminsu/MovieTrailer/issues/24#issuecomment-2466520007)
+## 안드로이드 개념 정리
+- [unidirectional data flow, single source of truth](https://github.com/lminsu/MovieTrailer/issues/21#issue-2627628868)
+- [코루틴](https://github.com/lminsu/MovieTrailer/issues/15#issuecomment-2466529516)
+- [cold flow](https://github.com/lminsu/MovieTrailer/issues/15#issue-2619251889)
+- [hot flow](https://github.com/lminsu/MovieTrailer/issues/15#issuecomment-2444666236)
 ## 프로젝트 설명
 - 최신 해외 영화에 대한 설명 및 예고편을 보여주며, 스와이프를 통해 다른 영화의 설명 및 예고편도 볼 수 있습니다.
 
 https://github.com/user-attachments/assets/eae4e972-bdd8-4071-af5e-a404fd4952c0
 
+### 프로젝트 진행 중 작업
+- 현재 [kotlin → java로 마이그레이션](https://github.com/lminsu/MovieTrailer/issues/22) 진행 중입니다.
 
 ### 프로젝트 전체 구조
 - 앱은 액티비티 하나(MainAcitivy)와 두 개의 프래그먼트(PagerFragment, MainFragment)로 이루어져 있습니다.
@@ -32,6 +39,3 @@ https://github.com/user-attachments/assets/eae4e972-bdd8-4071-af5e-a404fd4952c0
     - MovieRepository 클래스에서만 Movie 인스턴스를, VideoRepository 클래스에서만 Video 인스턴스를 생성하도록 하도록 구현하였습니다.
 - [share data between a parent and child fragment](https://developer.android.com/guide/fragments/communicate#share_data_between_a_parent_and_child_fragment)
   - 자식 프래그먼트에서 부모 프래그먼트의 데이터가 필요한 경우, 부모 뷰모델로 직접 접근하여 사용하였습니다.
-
-### 프로젝트 추가 작업
-- 현재 [kotlin → java로 마이그레이션](https://github.com/lminsu/MovieTrailer/issues/22) 진행 중입니다.
