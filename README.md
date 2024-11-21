@@ -9,6 +9,8 @@
 - [코루틴](https://github.com/lminsu/MovieTrailer/issues/15#issuecomment-2466529516)
 - [cold flow](https://github.com/lminsu/MovieTrailer/issues/15#issue-2619251889)
 - [hot flow](https://github.com/lminsu/MovieTrailer/issues/15#issuecomment-2444666236)
+## 크래시 디버깅 경험
+- [프래그먼트에 생성자 인자를 추가하면 가로모드 회전 시 에러 발생](https://github.com/lminsu/MovieTrailer/issues/25#issue-2680954721)
 ## 프로젝트 설명
 - 최신 해외 영화에 대한 설명 및 예고편을 보여주며, 스와이프를 통해 다른 영화의 설명 및 예고편도 볼 수 있습니다.
 
