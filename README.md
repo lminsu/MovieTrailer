@@ -9,6 +9,7 @@
 - [코루틴](https://github.com/lminsu/MovieTrailer/issues/15#issuecomment-2466529516)
 - [cold flow](https://github.com/lminsu/MovieTrailer/issues/15#issue-2619251889)
 - [hot flow](https://github.com/lminsu/MovieTrailer/issues/15#issuecomment-2444666236)
+- [Activity/Fragment 라이프싸이클](https://github.com/lminsu/MovieTrailer/issues/27#issue-2695724290)
 ## 크래시 디버깅 경험
 - [프래그먼트에 생성자 인자를 추가하면 가로모드 회전 시 에러 발생](https://github.com/lminsu/MovieTrailer/issues/25#issue-2680954721)
 - [뷰모델 생성 시점을 프래그먼트 생성 시점과 동일하게 하면 크래시 발생](https://github.com/lminsu/MovieTrailer/issues/25#issuecomment-2492545327)
