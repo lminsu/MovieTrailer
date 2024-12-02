@@ -4,6 +4,7 @@
 - [user/kernel space, system call과 interrupt, context switch](https://github.com/lminsu/MovieTrailer/issues/24#issuecomment-2466461454)
 - [jvm - runtime data area](https://github.com/lminsu/MovieTrailer/issues/24#issuecomment-2466520007)
 - [동기/비동기, blocking/non-blocking 함수](https://github.com/lminsu/MovieTrailer/issues/24#issuecomment-2489161730)
+- [open class와 interface(상속과 구현)](https://github.com/lminsu/MovieTrailer/issues/24#issuecomment-2512260228)
 ## 안드로이드 개념 정리
 - [unidirectional data flow, single source of truth](https://github.com/lminsu/MovieTrailer/issues/21#issue-2627628868)
 - [코루틴](https://github.com/lminsu/MovieTrailer/issues/15#issuecomment-2466529516)
